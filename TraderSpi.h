@@ -88,7 +88,7 @@ private:
 	void ReqQuoteInsert();
 	///报单操作请求
 	void ReqOrderAction(CThostFtdcOrderField *pOrder);
-	///执行宣告操作请求
+	///执行宣告操作请求, 用于期权
 	void ReqExecOrderAction(CThostFtdcExecOrderField *pExecOrder);
 	///报价操作请求
 	void ReqQuoteAction(CThostFtdcQuoteField *pQuote);

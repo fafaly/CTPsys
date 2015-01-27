@@ -71,9 +71,7 @@ void CTraderSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,
 		sprintf(QUOTE_REF, "%d", 1);
 		///获取当前交易日
 		cerr << "--->>> 获取当前交易日 = " << pUserApi->GetTradingDay() << endl;
-		//ReqForQuoteInsert();//报价查询不知道干嘛用的
-		ReqOrderInsert();//报单
-		//ReqExecOrderInsert();
+		//ReqOrderInsert();//报单
 		//ReqQryInstrument();
 		///投资者结算结果确认
 		ReqSettlementInfoConfirm();
@@ -97,6 +95,8 @@ void CTraderSpi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField
 	cerr << "--->>> " << "OnRspSettlementInfoConfirm" << endl;
 	if (bIsLast && !IsErrorRspInfo(pRspInfo))
 	{
+		///保单
+		ReqOrderInsert();
 		///请求查询合约
 		ReqQryInstrument();
 	}
@@ -202,14 +202,16 @@ void CTraderSpi::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInve
 	cerr << "--->>> " << "OnRspQryInvestorPosition" << endl;
 	if (bIsLast && !IsErrorRspInfo(pRspInfo))
 	{
-		///报单录入请求
-		ReqOrderInsert();
-		//执行宣告录入请求
-		ReqExecOrderInsert();
-		//询价录入
-		ReqForQuoteInsert();
-		//做市商报价录入
-		ReqQuoteInsert();
+		cout<<"上日持仓"<<pInvestorPosition->YdPosition << endl;
+		cout << "今日持仓" << pInvestorPosition->Position << endl;
+		/////报单录入请求
+		//ReqOrderInsert();
+		////执行宣告录入请求
+		//ReqExecOrderInsert();
+		////询价录入
+		//ReqForQuoteInsert();
+		////做市商报价录入
+		//ReqQuoteInsert();
 	}
 }
 
